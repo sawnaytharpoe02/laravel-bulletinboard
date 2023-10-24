@@ -31,6 +31,11 @@
         </svg>
       </div>
 
+      <div>
+        <a href="/register">Register</a>
+        <a href="/login">Login</a>
+      </div>
+
       <div class="dropdown dropdown-end ml-4">
         <label tabindex="0" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">

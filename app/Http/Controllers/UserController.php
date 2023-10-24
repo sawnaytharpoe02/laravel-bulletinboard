@@ -8,7 +8,6 @@ use App\Models\TemporaryFile;
 use Illuminate\Validation\Rule;
 use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -19,41 +18,50 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => ['required'],
-            'email' => ['required'],
-            'password' => ['required'],
-            'image' => ['required']
+        $formFields = $request->validate([
+            'name' => 'required',
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => ['required', 'confirmed', 'min:6'],
         ]);
 
         $tmp_file = TemporaryFile::where('folder', $request->image)->first();
 
-        if($validator->fails() && $tmp_file) {
-            Storage::deleteDirectory('posts/tmp/'. $tmp_file->folder);
-            $tmp_file->delete();
-        }
-
-        if($validator->fails()) {
-            return redirect('/')->withErrors($validator)->withInput();
-        }
+        $formFields['password'] = bcrypt($formFields['password']);
+        $formFields['image'] = $tmp_file ? $tmp_file->folder . '/' . $tmp_file->file_name : null;
+        $user = User::create($formFields);
 
         if($tmp_file) {
-            Storage::copy('posts/tmp/'. $tmp_file->folder . '/' . $tmp_file->file, 'posts/' . $tmp_file->folder . '/' . $tmp_file->file);
-
-            User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'image' => $tmp_file->folder . '/' . $tmp_file->file_name,
-            ]);
-
-            Storage::deleteDirectory('posts/tmp/'. $tmp_file->folder);
-            $tmp_file->delete();
-
-            return redirect('/');
+            Storage::copy('posts/tmp/' . $tmp_file->folder . '/' . $tmp_file->file, 'posts/' . $tmp_file->folder . '/' . $tmp_file->file);
         }
+        Storage::deleteDirectory('posts/tmp/' . $tmp_file?->folder);
+        $tmp_file?->delete();
+          
+        auth()->login($user);
+        return redirect('/')->with('message', 'You are registered!');
     }
 
+
+    public function login()
+    {
+        return view('auth.login');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $formFields = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => 'required'
+        ]);
+
+        if(auth()->attempt($formFields)) {
+            $request->session()->regenerate();
+
+            return redirect('/')->with('message', 'You are now logged in!');
+        }
+
+        return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
+
+    }
 
     public function tmpUpload(Request $request)
     {
