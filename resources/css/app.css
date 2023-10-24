@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.sun,
+.moon {
+  opacity: 1;
+  visibility: visible;
+  transform: rotate(0deg);
+  transition: .4s all;
+}
+
+[data-theme="dark"] .moon {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+[data-theme="light"] .sun {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+.filepond--credits {
+  display: none;
+}
+
+[data-theme="dark"] .filepond--panel-root {
+  background-color: #1d232a !important;
+  border: 1px solid #383e46;
+}
+
+[data-theme="dark"] .filepond--drop-label {
+  color: #a6adba;
+}
