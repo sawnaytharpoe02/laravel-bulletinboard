@@ -35,7 +35,7 @@ class UserController extends Controller
         }
         Storage::deleteDirectory('posts/tmp/' . $tmp_file?->folder);
         $tmp_file?->delete();
-          
+
         auth()->login($user);
         return redirect('/')->with('message', 'You are registered!');
     }
@@ -60,7 +60,16 @@ class UserController extends Controller
         }
 
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
+    }
 
+    public function logout(Request $request)
+    {
+        auth()->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login')->with('message', 'You have been logged out!');
     }
 
     public function tmpUpload(Request $request)
