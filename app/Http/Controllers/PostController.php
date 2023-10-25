@@ -29,4 +29,14 @@ class PostController extends Controller
         Post::create($formFields);
         return redirect('/')->with('message', 'Post created successfully!');
     }
+
+    public function show(Post $postId)
+    {
+        return view('posts.show', ['post' => $postId]);
+    }
+
+    public function edit(Post $postId)
+    {
+        return view('posts.edit', ['post' => $postId]);
+    }
 }

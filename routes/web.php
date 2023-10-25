@@ -4,6 +4,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\Attributes\PostCondition;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,9 @@ Route::get('/', [PostController::class, 'index']);
 // Posts
 Route::get('/posts/create', [PostController::class, 'create']);
 Route::post('/posts', [PostController::class, 'store']);
+
+Route::get('/posts/{postId}/detail', [PostController::class, 'show']);
+Route::get('/posts/{postId}/edit', [PostController::class, 'edit']);
 
 // User Registration
 Route::get('/register', [UserController::class, 'create']);

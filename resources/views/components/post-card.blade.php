@@ -14,12 +14,13 @@
       </div>
     </div>
     <div>
-      <h2 class="card-title mb-2">{{$post->title}}<h2>
+      <h2 class="card-title mb-2"><a href="/posts/{{$post->id}}/detail">{{$post->title}}</a>
+        <h2>
           <p class="text-sm">{{$post->description}}</p>
     </div>
     <div class="card-actions justify-end">
-      <button class="btn btn-sm btn-primary">Edit</button>
-      <button class="btn btn-sm btn-error">Delete</button>
+      <a class="btn btn-sm btn-primary" href="/posts/{{$post->id}}/edit">Edit</a>
+      <a class="btn btn-sm btn-error">Delete</a>
     </div>
   </div>
 </div>

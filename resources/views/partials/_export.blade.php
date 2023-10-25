@@ -1,0 +1,1 @@
+<button class="btn btn-sm h-10 btn-info capitalize">Download</button>
