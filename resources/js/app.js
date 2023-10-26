@@ -28,8 +28,8 @@ const sun = document.querySelector("#sun_icon");
 const moon = document.querySelector("#moon_icon");
 
 // Set the initial theme based on the user's preference
-if (userTheme === "dark") {
-    document.documentElement.setAttribute("data-theme", "dark");
+if (userTheme === "dracula") {
+    document.documentElement.setAttribute("data-theme", "dracula");
 } else {
     document.documentElement.setAttribute("data-theme", "light");
 }
@@ -37,8 +37,8 @@ if (userTheme === "dark") {
 // Function to toggle themes
 function toggleTheme() {
     if (document.documentElement.getAttribute("data-theme") === "light") {
-        document.documentElement.setAttribute("data-theme", "dark");
-        sessionStorage.setItem("theme", "dark"); // Store the theme preference in session storage
+        document.documentElement.setAttribute("data-theme", "dracula");
+        sessionStorage.setItem("theme", "dracula"); // Store the theme preference in session storage
     } else {
         document.documentElement.setAttribute("data-theme", "light");
         sessionStorage.setItem("theme", "light"); // Store the theme preference in session storage
@@ -47,3 +47,4 @@ function toggleTheme() {
 
 sun.addEventListener("click", toggleTheme);
 moon.addEventListener("click", toggleTheme);
+

@@ -11,12 +11,46 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+
+    public function index()
+    {
+        $users = User::latest()->get();
+        return view('users.index', compact('users'));
+    }
+
     public function create()
+    {
+        return view('users.create');
+    }
+
+    public function store(Request $request)
+    {
+        $formFields = $request->validate([
+            'name' => 'required',
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => ['required', 'min:6'],
+        ]);
+
+        $tmp_file = TemporaryFile::where('folder', $request->image)->first();
+
+        $formFields['password'] = bcrypt($formFields['password']);
+        $formFields['image'] = $tmp_file ? $tmp_file->folder . '/' . $tmp_file->file : null;
+        User::create($formFields);
+
+        if($tmp_file) {
+            Storage::copy('posts/tmp/' . $tmp_file->folder . '/' . $tmp_file->file, 'posts/' . $tmp_file->folder . '/' . $tmp_file->file);
+        }
+        Storage::deleteDirectory('posts/tmp/' . $tmp_file?->folder);
+        $tmp_file?->delete();
+
+        return redirect('/users')->with('message', 'User created successfully!');
+    }
+    public function showRegistrationForm()
     {
         return view('auth.register');
     }
 
-    public function store(Request $request)
+    public function submitRegistrationForm(Request $request)
     {
         $formFields = $request->validate([
             'name' => 'required',

@@ -23,7 +23,10 @@ class DatabaseSeeder extends Seeder
 
         $user = User::factory()->create([
             'name' => 'John Doe',
-            'email' => 'johndoe@gmail.com'
+            'email' => 'johndoe@gmail.com',
+            'phone' => '09123456789',
+            'dob' => '2000-01-01',
+            'address' => '123 Main St, Anytown USA',
         ]);
 
         Post::factory(10)->create([

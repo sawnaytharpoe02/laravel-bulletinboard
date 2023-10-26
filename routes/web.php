@@ -22,14 +22,19 @@ Route::get('/', [PostController::class, 'index']);
 
 // Posts
 Route::get('/posts/create', [PostController::class, 'create']);
-Route::post('/posts', [PostController::class, 'store']);
-
+Route::post('/post', [PostController::class, 'store']);
 Route::get('/posts/{postId}/detail', [PostController::class, 'show']);
-Route::get('/posts/{postId}/edit', [PostController::class, 'edit']);
+Route::put('/posts/{postId}/edit', [PostController::class, 'update']);
+Route::delete('/posts/{postId}/delete', [PostController::class, 'destroy']);
+
+// Users
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/create', [UserController::class, 'create']);
+Route::post('/user', [UserController::class, 'store']);
 
 // User Registration
-Route::get('/register', [UserController::class, 'create']);
-Route::post('/post-register', [UserController::class, 'store']);
+Route::get('/register', [UserController::class, 'showRegistrationForm']);
+Route::post('/post-register', [UserController::class, 'submitRegistrationForm']);
 
 // User Login
 Route::get('/login', [UserController::class, 'login']);
