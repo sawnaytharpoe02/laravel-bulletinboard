@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Exports\PostsExport;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PostController extends Controller
 {
@@ -53,5 +55,10 @@ class PostController extends Controller
     {
         $postId->delete();
         return redirect('/')->with('message', 'Post deleted successfully!');
+    }
+
+    public function fileExport()
+    {
+        return Excel::download(new PostsExport, 'posts.xlsx');
     }
 }

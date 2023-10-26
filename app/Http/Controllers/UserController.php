@@ -38,13 +38,14 @@ class UserController extends Controller
         User::create($formFields);
 
         if($tmp_file) {
-            Storage::copy('posts/tmp/' . $tmp_file->folder . '/' . $tmp_file->file, 'posts/' . $tmp_file->folder . '/' . $tmp_file->file);
+            Storage::copy('public/posts/tmp/' . $tmp_file->folder . '/' . $tmp_file->file, 'public/posts/' . $tmp_file->folder . '/' . $tmp_file->file);
         }
-        Storage::deleteDirectory('posts/tmp/' . $tmp_file?->folder);
+        Storage::deleteDirectory('public/posts/tmp/' . $tmp_file?->folder);
         $tmp_file?->delete();
 
         return redirect('/users')->with('message', 'User created successfully!');
     }
+
     public function showRegistrationForm()
     {
         return view('auth.register');
@@ -112,7 +113,7 @@ class UserController extends Controller
             $image = $request->file('image');
             $file_name = $image->getClientOriginalName();
             $folder = uniqid('post', true);
-            $image->storeAs('posts/tmp/' . $folder, $file_name);
+            $image->storeAs('public/posts/tmp/' . $folder, $file_name);
 
             TemporaryFile::create([
                 'folder' => $folder,
@@ -128,7 +129,7 @@ class UserController extends Controller
     {
         $tmp_file = TemporaryFile::where('folder', request()->getContent())->first();
         if($tmp_file) {
-            Storage::deleteDirectory('posts/tmp/'. $tmp_file->folder);
+            Storage::deleteDirectory('public/posts/tmp/'. $tmp_file->folder);
             $tmp_file->delete();
             return response('');
         }

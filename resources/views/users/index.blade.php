@@ -25,7 +25,7 @@
             <div class="flex items-center space-x-3">
               <div class="avatar">
                 <div class="mask mask-squircle w-12 h-12">
-                  <img src="{{$user->image ? $user->image : asset('/images/img-3.jpg')}}" />
+                  <img src="{{$user->image ? asset('storage/posts/'. $user->image) : asset('/images/img-3.jpg')}}" />
                 </div>
               </div>
               <div>

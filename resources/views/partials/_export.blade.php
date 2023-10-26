@@ -1,1 +1,1 @@
-<button class="btn btn-sm h-10 btn-info capitalize">Download</button>
+<a href="{{ route('file-export') }}" class="btn btn-sm h-10 btn-info capitalize">Download</a>

@@ -13,7 +13,7 @@
             <label class="label">
               <span class="label-text">Email</span>
             </label>
-            <input type="email" name="email" class="input input-bordered" value="{{old('email')}}" />
+            <input type="email" name="email" placeholder="email" class="input input-bordered text-sm" value="{{old('email')}}" />
 
             @error('email')
             <p class="text-red-600">{{$message}}</p>
@@ -23,7 +23,7 @@
             <label class="label">
               <span class="label-text">Password</span>
             </label>
-            <input type="password" name="password" class="input input-bordered" value="{{old('password')}}" />
+            <input type="password" name="password" placeholder="password" class="input input-bordered text-sm" value="{{old('password')}}" />
 
             @error('password')
             <p class="text-red-600">{{$message}}</p>

@@ -52,3 +52,8 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 // File Uploading
 Route::post('/tmp-upload', [UserController::class, 'tmpUpload']);
 Route::delete('/tmp-delete', [UserController::class, 'tmpDelete']);
+
+// Excel Export Import
+Route::get('file-import-export', [UserController::class, 'fileImportExport']);
+Route::post('file-import', [PostController::class, 'fileImport'])->name('file-import');
+Route::get('file-export', [PostController::class, 'fileExport'])->name('file-export');
