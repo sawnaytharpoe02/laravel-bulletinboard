@@ -1,5 +1,5 @@
 <x-layout>
-  @include('partials._search')
+  @include('partials._users-search')
   <div class="overflow-x-auto bg-base-100 rounded-lg">
     <table class="table">
       <!-- head -->
@@ -24,8 +24,8 @@
           <td>
             <div class="flex items-center space-x-3">
               <div class="avatar">
-                <div class="mask mask-squircle w-12 h-12">
-                  <img src="{{$user->image ? asset('storage/posts/'. $user->image) : asset('/images/img-3.jpg')}}" />
+                <div class="mask mask-squircle w-12 h-12 bg-cover bg-no-repeat"
+                  style="background-image: url('{{$user->image ? asset('storage/posts/'. $user->image) : asset('/images/default-avatar.jpg')}}')">
                 </div>
               </div>
               <div>

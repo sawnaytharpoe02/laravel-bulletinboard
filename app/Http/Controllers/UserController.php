@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\TemporaryFile;
 use Illuminate\Validation\Rule;
-use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -15,7 +14,7 @@ class UserController extends Controller
     // Lists of users screen
     public function index()
     {
-        $users = User::latest()->get();
+        $users = User::latest()->filter(request(['search']))->paginate();
         return view('users.index', compact('users'));
     }
 
@@ -52,10 +51,13 @@ class UserController extends Controller
         return redirect('/users')->with('message', 'User created successfully!');
     }
 
+    // User Edit Screen
     public function edit(User $userId)
     {
         return view('users.edit', ['user' => $userId]);
     }
+
+    // Update User
     public function update(Request $request, User $userId)
     {
         $formFields = $request->validate([
@@ -64,7 +66,6 @@ class UserController extends Controller
             'phone' => 'nullable',
             'dob' => 'nullable',
             'address' => 'nullable',
-            'image' => 'nullable|image',
         ]);
 
         $tmp_file = TemporaryFile::where('folder', $request->image)->first();

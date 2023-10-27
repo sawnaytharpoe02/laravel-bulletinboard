@@ -9,12 +9,18 @@
         </svg>
       </label>
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li><a>Users</a></li>
+        <li>
+          <a>Users</a>
+          <ul class="p-2">
+            <li><a href="/users/create">Create User</a></li>
+            <li><a href="/users">User Lists</a></li>
+          </ul>
+        </li>
         <li>
           <a>Posts</a>
           <ul class="p-2">
-            <li><a>Create Post</a></li>
-            <li><a>Post Lists</a></li>
+            <li><a href="/posts/create">Create Post</a></li>
+            <li><a href="/">Post Lists</a></li>
           </ul>
         </li>
       </ul>

@@ -1,6 +1,6 @@
 <x-layout>
   <div class="flex justify-between">
-    @include('partials._search')
+    @include('partials._posts-search')
     <div class="w-fit flex gap-4">
       @include('partials._export')
       <div class="flex gap-4">

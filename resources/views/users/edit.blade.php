@@ -1,6 +1,5 @@
 <x-layout>
-  {{-- @dd($user) --}}
-  <div class="min-h-screen">
+  <div class="min-h-screen mt-12">
     <div class="hero">
       <div class="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
         <form class="card-body" action="/users/{{$user->id}}/update" method="post" enctype="multipart/form-data">
@@ -16,6 +15,7 @@
             <p class="text-red-600">{{$message}}</p>
             @enderror
           </div>
+
           <div class="form-control">
             <label class="label">
               <span class="label-text">Email</span>
@@ -26,6 +26,7 @@
             <p class="text-red-600">{{$message}}</p>
             @enderror
           </div>
+
           <div class="form-control">
             <label class="label">
               <span class="label-text">Phone</span>
@@ -36,6 +37,7 @@
             <p class="text-red-600">{{$message}}</p>
             @enderror
           </div>
+
           <div class="form-control">
             <label class="label">
               <span class="label-text">Date of Birth</span>
@@ -52,8 +54,8 @@
               <span class="label-text">Role</span>
             </label>
             <select name="role" class="select select-bordered text-sm">
-              <option value="0">Admin</option>
-              <option value="1" selected>User</option>
+              <option value="0" {{ $user->role == 0 ? 'selected' : '' }}>Admin</option>
+              <option value="1" {{ $user->role == 1 ? 'selected' : '' }}>User</option>
             </select>
           </div>
 
@@ -68,17 +70,19 @@
             <p class="text-red-600">{{$message}}</p>
             @enderror
           </div>
+
           <div class="form-control">
             <label class="label">
               <span><label class="label-text">Profile</span>
             </label>
             <input type="file" name="image" id="image" class="edit-profile-image" data-max-file-size="3MB"
               data-max-files="1">
+            @if ($user->image)
             <div class="avatar">
-              <div class="w-full rounded-xl preview-profile-image">
-                <img src="{{$user->image ? asset('storage/posts/'. $user->image) : asset('/images/img-3.jpg')}}" alt="">
+              <div class="w-full h-72 bg-contain bg-no-repeat bg-center rounded-xl preview-profile-image" style="background-image: url('{{asset('storage/posts/'. $user->image)}}')">
               </div>
             </div>
+            @endif
           </div>
           <div class="form-control mt-6">
             <button class="btn btn-primary" type="submit">Update</button>
