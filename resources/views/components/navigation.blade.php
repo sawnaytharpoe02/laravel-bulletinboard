@@ -25,7 +25,15 @@
   {{-- desktop --}}
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li><a href="/posts/create">Create Post</a></li>
+      <li tabindex="0">
+        <details>
+          <summary>Posts</summary>
+          <ul class="p-2">
+            <li><a href="/posts/create">Create</a></li>
+            <li><a href="/">Lists</a></li>
+          </ul>
+        </details>
+      </li>
       <li tabindex="0">
         <details>
           <summary>Users</summary>

@@ -12,23 +12,29 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
 
+    // Lists of users screen
     public function index()
     {
         $users = User::latest()->get();
         return view('users.index', compact('users'));
     }
 
+    // Create User Screen
     public function create()
     {
         return view('users.create');
     }
 
+    // Create User
     public function store(Request $request)
     {
         $formFields = $request->validate([
             'name' => 'required',
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => ['required', 'min:6'],
+            'phone' => 'nullable',
+            'dob' => 'nullable',
+            'address' => 'nullable',
         ]);
 
         $tmp_file = TemporaryFile::where('folder', $request->image)->first();
@@ -46,11 +52,47 @@ class UserController extends Controller
         return redirect('/users')->with('message', 'User created successfully!');
     }
 
+    public function edit(User $userId)
+    {
+        return view('users.edit', ['user' => $userId]);
+    }
+    public function update(Request $request, User $userId)
+    {
+        $formFields = $request->validate([
+            'name' => 'required',
+            'email' => ['required', 'email'],
+            'phone' => 'nullable',
+            'dob' => 'nullable',
+            'address' => 'nullable',
+            'image' => 'nullable|image',
+        ]);
+
+        $tmp_file = TemporaryFile::where('folder', $request->image)->first();
+
+        $formFields['image'] = $tmp_file ? $tmp_file->folder . '/' . $tmp_file->file : null;
+
+        unset($formFields['password']);
+        $userId->update($formFields);
+
+        if($tmp_file) {
+            Storage::copy('public/posts/tmp/' . $tmp_file->folder . '/' . $tmp_file->file, 'public/posts/' . $tmp_file->folder . '/' . $tmp_file->file);
+        }
+
+        Storage::deleteDirectory('public/posts/tmp/' . $tmp_file?->folder);
+        $tmp_file?->delete();
+
+        return redirect('/users')->with('message', 'User updated successfully!');
+    }
+
+
+    // User Registration Screen
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
 
+
+    // User Registration
     public function submitRegistrationForm(Request $request)
     {
         $formFields = $request->validate([
@@ -76,11 +118,14 @@ class UserController extends Controller
     }
 
 
+    // User Login Screen
     public function login()
     {
         return view('auth.login');
     }
 
+
+    // User Login
     public function authenticate(Request $request)
     {
         $formFields = $request->validate([
@@ -97,6 +142,7 @@ class UserController extends Controller
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
     }
 
+    // User Logout
     public function logout(Request $request)
     {
         auth()->logout();
@@ -107,6 +153,7 @@ class UserController extends Controller
         return redirect('/login')->with('message', 'You have been logged out!');
     }
 
+    // Upload Temporary Profile
     public function tmpUpload(Request $request)
     {
         if($request->hasFile('image')) {
@@ -124,7 +171,7 @@ class UserController extends Controller
         return '';
     }
 
-
+    // Delete Temporary Upload Profile
     public function tmpDelete()
     {
         $tmp_file = TemporaryFile::where('folder', request()->getContent())->first();

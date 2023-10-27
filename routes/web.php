@@ -31,6 +31,8 @@ Route::delete('/posts/{postId}/delete', [PostController::class, 'destroy']);
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/create', [UserController::class, 'create']);
 Route::post('/user', [UserController::class, 'store']);
+Route::get('/users/{userId}/edit', [UserController::class, 'edit']);
+Route::put('/users/{userId}/update', [UserController::class, 'update']);
 
 // User Registration
 Route::get('/register', [UserController::class, 'showRegistrationForm']);
@@ -54,6 +56,5 @@ Route::post('/tmp-upload', [UserController::class, 'tmpUpload']);
 Route::delete('/tmp-delete', [UserController::class, 'tmpDelete']);
 
 // Excel Export Import
-Route::get('file-import-export', [UserController::class, 'fileImportExport']);
-Route::post('file-import', [PostController::class, 'fileImport'])->name('file-import');
-Route::get('file-export', [PostController::class, 'fileExport'])->name('file-export');
+Route::get('posts-export', [PostController::class, 'fileExport'])->name('posts.export');
+Route::post('posts-import', [PostController::class, 'fileImport'])->name('posts.import');

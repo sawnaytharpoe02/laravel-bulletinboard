@@ -1,9 +1,11 @@
 <x-layout>
   <div class="flex justify-between">
     @include('partials._search')
-    <div class="flex gap-4">
+    <div class="w-fit flex gap-4">
       @include('partials._export')
-      @include('partials._import')
+      <div class="flex gap-4">
+        @include('partials._import')
+      </div>
     </div>
   </div>
   <div class="flex justify-center gap-10 flex-wrap">

@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'address' => '123 Main St, Anytown USA',
         ]);
 
-        Post::factory(10)->create([
+        Post::factory(6)->create([
             'user_id' => $user->id
         ]);
     }

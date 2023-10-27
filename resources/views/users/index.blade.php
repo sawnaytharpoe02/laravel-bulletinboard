@@ -30,7 +30,7 @@
               </div>
               <div>
                 <div class="font-bold">{{$user->name}}</div>
-                <div class="text-sm opacity-50">Admin</div>
+                <div class="text-sm opacity-50">{{$user->role == 1 ? 'User' : 'Admin'}}</div>
               </div>
             </div>
           </td>
@@ -42,7 +42,7 @@
           <td>{{$user->address ? $user->address : 'N/A'}}</td>
           <th>
             <div class="flex items-center space-x-3">
-              <button class="btn btn-accent btn-xs">Edit</button>
+              <a class="btn btn-accent btn-xs" href="/users/{{$user->id}}/edit">Edit</a>
               <button class="btn btn-error btn-xs">Delete</button>
             </div>
         </tr>
