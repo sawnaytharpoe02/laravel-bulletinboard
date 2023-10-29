@@ -27,6 +27,9 @@ FilePond.setOptions({
 });
 
 function hideEditProfileImage() {
-    const profileImage = document.querySelector(".preview-profile-image");
-    profileImage.style.display = "none";
+    const profileImage = document.querySelector("#preview-profile-image");
+    if (profileImage) {
+        profileImage.style.display = "none";
+    }
+    return;
 }

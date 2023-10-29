@@ -51,6 +51,12 @@ class UserController extends Controller
         return redirect('/users')->with('message', 'User created successfully!');
     }
 
+    // User Detail Screen
+    public function show(User $userId)
+    {
+        return view('users.show', ['user' => $userId]);
+    }
+
     // User Edit Screen
     public function edit(User $userId)
     {
@@ -85,6 +91,11 @@ class UserController extends Controller
         return redirect('/users')->with('message', 'User updated successfully!');
     }
 
+    // User Delete
+    public function destroy(User $userId)
+    {
+        dd($userId);
+    }
 
     // User Registration Screen
     public function showRegistrationForm()

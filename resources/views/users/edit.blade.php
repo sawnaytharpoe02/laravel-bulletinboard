@@ -78,8 +78,9 @@
             <input type="file" name="image" id="image" class="edit-profile-image" data-max-file-size="3MB"
               data-max-files="1">
             @if ($user->image)
-            <div class="avatar">
-              <div class="w-full h-72 bg-contain bg-no-repeat bg-center rounded-xl preview-profile-image" style="background-image: url('{{asset('storage/posts/'. $user->image)}}')">
+            <div class="avatar" id="preview-profile-image">
+              <div class="w-full h-72 bg-contain bg-no-repeat bg-center rounded-xl"
+                style="background-image: url('{{asset('storage/posts/'. $user->image)}}')">
               </div>
             </div>
             @endif

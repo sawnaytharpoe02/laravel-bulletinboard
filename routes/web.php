@@ -31,8 +31,10 @@ Route::delete('/posts/{postId}/delete', [PostController::class, 'destroy']);
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/create', [UserController::class, 'create']);
 Route::post('/user', [UserController::class, 'store']);
+Route::get('/users/{userId}/detail', [UserController::class, 'show']);
 Route::get('/users/{userId}/edit', [UserController::class, 'edit']);
 Route::put('/users/{userId}/update', [UserController::class, 'update']);
+Route::delete('/users/{userId}/delete', [UserController::class, 'destroy']);
 
 // User Registration
 Route::get('/register', [UserController::class, 'showRegistrationForm']);
