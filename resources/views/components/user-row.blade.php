@@ -24,6 +24,6 @@
   <td>{{$user->address ? $user->address : 'N/A'}}</td>
   <th>
     <div class="flex items-center space-x-3">
-      <a class="btn btn-info btn-xs capitalize" href="/users/{{$user->id}}/detail">View</a>
+      <a class="btn btn-info btn-xs capitalize" href="/users/{{$user->id}}/detail">Detail</a>
     </div>
 </tr>

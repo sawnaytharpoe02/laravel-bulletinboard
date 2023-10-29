@@ -8,6 +8,7 @@ module.exports = {
     theme: {
         fontFamily: {
             poppins: ["Poppins", "sans-serif"],
+            noto: ["Noto Serif", "serif"]
         },
         extend: {},
     },
