@@ -12,7 +12,7 @@
       </div>
       <div>
         <div class="font-bold">{{$user->name}}</div>
-        <div class="text-sm opacity-50">{{$user->role == 1 ? 'User' : 'Admin'}}</div>
+        <div class="text-sm opacity-50">{{$user->is_admin == 1 ? 'Admin' : 'User'}}</div>
       </div>
     </div>
   </td>

@@ -54,8 +54,8 @@
               <span class="label-text">Role</span>
             </label>
             <select name="role" class="select select-bordered text-sm">
-              <option value="0" {{ $user->role == 0 ? 'selected' : '' }}>Admin</option>
-              <option value="1" {{ $user->role == 1 ? 'selected' : '' }}>User</option>
+              <option value="0" {{ $user->is_admin == 1 ? 'selected' : '' }}>Admin</option>
+              <option value="1" {{ $user->is_admin == 0 ? 'selected' : '' }}>User</option>
             </select>
           </div>
 
@@ -75,8 +75,7 @@
             <label class="label">
               <span><label class="label-text">Profile</span>
             </label>
-            <input type="file" name="image" id="image" class="edit-profile-image" data-max-file-size="3MB"
-              data-max-files="1">
+            <input type="file" name="image" id="image" class="edit-profile-image" data-max-files="1">
             @if ($user->image)
             <div class="avatar" id="preview-profile-image">
               <div class="w-full h-72 bg-contain bg-no-repeat bg-center rounded-xl"

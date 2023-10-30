@@ -112,18 +112,7 @@ class UserController extends Controller
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => ['required', 'confirmed', 'min:6'],
         ]);
-
-        $tmp_file = TemporaryFile::where('folder', $request->image)->first();
-
-        $formFields['password'] = bcrypt($formFields['password']);
-        $formFields['image'] = $tmp_file ? $tmp_file->folder . '/' . $tmp_file->file_name : null;
         $user = User::create($formFields);
-
-        if($tmp_file) {
-            Storage::copy('posts/tmp/' . $tmp_file->folder . '/' . $tmp_file->file, 'posts/' . $tmp_file->folder . '/' . $tmp_file->file);
-        }
-        Storage::deleteDirectory('posts/tmp/' . $tmp_file?->folder);
-        $tmp_file?->delete();
 
         auth()->login($user);
         return redirect('/')->with('message', 'You are registered!');
@@ -171,7 +160,7 @@ class UserController extends Controller
         if($request->hasFile('image')) {
             $image = $request->file('image');
             $file_name = $image->getClientOriginalName();
-            $folder = uniqid('post', true);
+            $folder = 'post_' . uniqid('', true);
             $image->storeAs('public/posts/tmp/' . $folder, $file_name);
 
             TemporaryFile::create([

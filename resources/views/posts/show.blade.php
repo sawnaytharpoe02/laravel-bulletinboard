@@ -13,7 +13,7 @@
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
       </form>
 
-      <form class="card-body" action="/posts/{{$post->id}}/edit" method="POST">
+      <form class="card-body" action="/posts/{{$post->id}}/update" method="POST">
         @csrf
         @method('PUT')
         <div class="form-control">

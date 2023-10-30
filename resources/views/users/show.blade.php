@@ -1,11 +1,12 @@
 <x-layout>
   <div class="card w-[50%] h-80 lg:card-side bg-base-100 shadow-xl m-auto">
-    <figure class="w-[50%] rounded-xl bg-cover bg-center bg-no-repeat" style="background-image: url('{{$user->image ? asset('storage/posts/'. $user->image) : asset('/images/default-avatar.jpg')}}')">
+    <figure class="w-[50%] rounded-xl bg-cover bg-center bg-no-repeat"
+      style="background-image: url('{{$user->image ? asset('storage/posts/'. $user->image) : asset('/images/default-avatar.jpg')}}')">
     </figure>
     <div class="card-body">
       <h2 class="card-title">
         {{$user->name}}
-        <div class="badge badge-secondary">{{$user->role == 1 ? "User" : "Admin"}}</div>
+        <div class="badge badge-secondary">{{$user->is_admin == 1 ? "Admin" : "User"}}</div>
       </h2>
       <div class="text-[0.84rem] font-noto text-gray-600 space-y-2 tracking-wide leading-6 mt-2">
         <p>Email - {{$user->email}}</p>

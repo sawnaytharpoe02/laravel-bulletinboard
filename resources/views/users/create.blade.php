@@ -81,7 +81,7 @@
             <label class="label">
               <span><label class="label-text">Profile</span>
             </label>
-            <input type="file" name="image" id="image" value="{{old('image')}}">
+            <input type="file" name="image" id="image" data-max-files="1" data-max-file-size="10MB">
           </div>
           <div class="form-control mt-6">
             <button class="btn btn-primary" type="submit">Create</button>

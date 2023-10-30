@@ -18,34 +18,34 @@ use PHPUnit\Framework\Attributes\PostCondition;
 */
 
 
-Route::get('/', [PostController::class, 'index']);
+Route::get('/', [PostController::class, 'index'])->middleware('auth');
 
 // Posts
-Route::get('/posts/create', [PostController::class, 'create']);
-Route::post('/post', [PostController::class, 'store']);
-Route::get('/posts/{postId}/detail', [PostController::class, 'show']);
-Route::put('/posts/{postId}/edit', [PostController::class, 'update']);
-Route::delete('/posts/{postId}/delete', [PostController::class, 'destroy']);
+Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
+Route::post('/post', [PostController::class, 'store'])->middleware('auth');
+Route::get('/posts/{postId}/detail', [PostController::class, 'show'])->middleware('auth');
+Route::put('/posts/{postId}/update', [PostController::class, 'update'])->middleware('auth');
+Route::delete('/posts/{postId}/delete', [PostController::class, 'destroy'])->middleware('auth');
 
 // Users
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/create', [UserController::class, 'create']);
-Route::post('/user', [UserController::class, 'store']);
-Route::get('/users/{userId}/detail', [UserController::class, 'show']);
-Route::get('/users/{userId}/edit', [UserController::class, 'edit']);
-Route::put('/users/{userId}/update', [UserController::class, 'update']);
-Route::delete('/users/{userId}/delete', [UserController::class, 'destroy']);
+Route::get('/users', [UserController::class, 'index'])->middleware('auth');
+Route::get('/users/create', [UserController::class, 'create'])->middleware('auth');
+Route::post('/user', [UserController::class, 'store'])->middleware('auth');
+Route::get('/users/{userId}/detail', [UserController::class, 'show'])->middleware('auth');
+Route::get('/users/{userId}/edit', [UserController::class, 'edit'])->middleware('auth');
+Route::put('/users/{userId}/update', [UserController::class, 'update'])->middleware('auth');
+Route::delete('/users/{userId}/delete', [UserController::class, 'destroy'])->middleware('auth');
 
 // User Registration
-Route::get('/register', [UserController::class, 'showRegistrationForm']);
-Route::post('/post-register', [UserController::class, 'submitRegistrationForm']);
+Route::get('/register', [UserController::class, 'showRegistrationForm'])->middleware('guest');
+Route::post('/post-register', [UserController::class, 'submitRegistrationForm'])->middleware('guest');
 
 // User Login
-Route::get('/login', [UserController::class, 'login']);
-Route::post('/post-login', [UserController::class, 'authenticate']);
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/post-login', [UserController::class, 'authenticate'])->middleware('guest');
 
 // User Logout
-Route::post('logout', [UserController::class, 'logout']);
+Route::post('logout', [UserController::class, 'logout'])->middleware('auth');
 
 // Forgot Password
 Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('forgot.password.get');

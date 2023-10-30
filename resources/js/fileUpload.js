@@ -16,11 +16,11 @@ FilePond.setOptions({
     server: {
         process: "/tmp-upload",
         revert: "/tmp-delete",
-        restore: "/tmp-restore",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
         },
     },
+    maxFileSize: 10 * 1024 * 1024,
     oninitfile: function () {
         hideEditProfileImage();
     },
