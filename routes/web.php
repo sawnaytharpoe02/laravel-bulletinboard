@@ -32,6 +32,7 @@ Route::get('/users', [UserController::class, 'index'])->middleware('auth');
 Route::get('/users/create', [UserController::class, 'create'])->middleware('auth');
 Route::post('/user', [UserController::class, 'store'])->middleware('auth');
 Route::get('/users/{userId}/detail', [UserController::class, 'show'])->middleware('auth');
+Route::get('/users/{userId}/profile', [UserController::class, 'profile'])->middleware('auth');
 Route::get('/users/{userId}/edit', [UserController::class, 'edit'])->middleware('auth');
 Route::put('/users/{userId}/update', [UserController::class, 'update'])->middleware('auth');
 Route::delete('/users/{userId}/delete', [UserController::class, 'destroy'])->middleware('auth');
@@ -46,6 +47,9 @@ Route::post('/post-login', [UserController::class, 'authenticate'])->middleware(
 
 // User Logout
 Route::post('logout', [UserController::class, 'logout'])->middleware('auth');
+
+// Change Password
+Route::post('update-password', [UserController::class, 'updatePassword'])->middleware('auth');
 
 // Forgot Password
 Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('forgot.password.get');

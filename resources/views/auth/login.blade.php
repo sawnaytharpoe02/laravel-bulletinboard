@@ -16,7 +16,7 @@
             <input type="email" name="email" placeholder="email" class="input input-bordered text-sm" value="{{old('email')}}" />
 
             @error('email')
-            <p class="text-red-600">{{$message}}</p>
+            <p class="text-sm text-red-600">{{$message}}</p>
             @enderror
           </div>
           <div class="form-control">
@@ -26,7 +26,7 @@
             <input type="password" name="password" placeholder="password" class="input input-bordered text-sm" value="{{old('password')}}" />
 
             @error('password')
-            <p class="text-red-600">{{$message}}</p>
+            <p class="text-sm text-red-600">{{$message}}</p>
             @enderror
             <label class="label">
               <a href="/forgot-password" class="label-text-alt link link-hover">Forgot password?</a>

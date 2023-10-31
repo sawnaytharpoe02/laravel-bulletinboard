@@ -1,5 +1,6 @@
 <x-layout>
-  <div class="min-h-screen mt-12">
+  @include('partials._back-btn', ['route' => 'users'])
+  <div class="min-h-screen">
     <div class="hero">
       <div class="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
         <form class="card-body" action="/user" method="post" enctype="multipart/form-data">
@@ -59,9 +60,9 @@
             <label class="label">
               <span class="label-text">Role</span>
             </label>
-            <select name="role" class="select select-bordered text-sm">
-              <option value="0">Admin</option>
-              <option value="1" selected>User</option>
+            <select name="is_admin" class="select select-bordered text-sm">
+              <option value="1">Admin</option>
+              <option value="0" selected>User</option>
             </select>
           </div>
 

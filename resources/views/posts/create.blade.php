@@ -1,5 +1,6 @@
 <x-layout>
-  <div class="hero mt-12">
+  @include('partials._back-btn')
+  <div class="hero">
     <div class="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
       <form class="card-body" action="/post" method="post">
         @csrf

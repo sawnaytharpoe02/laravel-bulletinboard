@@ -1,9 +1,29 @@
 <x-layout>
-  <div>
-    <p>{{$post->title}}</p>
-    <p>{{$post->description}}</p>
-    <a class="btn btn-sm btn-primary capitalize" onclick="edit_post.showModal()">Edit</a>
-    <a class="btn btn-sm btn-error capitalize" onclick="delete_post.showModal()">Delete</a>
+  @include('partials._back-btn', ['route'])
+  <div class="hero mt-5">
+    <div class="flex flex-col lg:flex-row bg-base-100 rounded-md p-10">
+      <div class="w-full max-w-sm text-left">
+        <div class="flex">
+          <div class="avatar mr-5">
+            <div class="w-12 rounded-full ring ring-accent ring-offset-base-100 ring-offset-2">
+              <img src={{$post->user->image ? $post->user->image : asset('/images/default-avatar.jpg')}} />
+            </div>
+          </div>
+          <div>
+            <p class="font-semibold">{{$post->user->name}}</p>
+            <p class="text-xs text-slate-500">{{($post->created_at)->format('F j, Y')}}</p>
+          </div>
+        </div>
+        <h1 class="text-xl lg:text-5xl font-bold mt-5">{{$post->title}}</h1>
+      </div>
+      <div class="w-full max-w-sm mt-4">
+        <p class="text-gray-500 text-[0.85rem] leading-6 tracking-wide">{{$post->description}}</p>
+        <div class="text-end mt-6">
+          <a class="btn btn-sm btn-primary capitalize" onclick="edit_post.showModal()">Edit</a>
+          <a class="btn btn-sm btn-error capitalize" onclick="delete_post.showModal()">Delete</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   {{-- Edit Post Modal --}}

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\TemporaryFile;
+use BackedEnum;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -34,6 +36,7 @@ class UserController extends Controller
             'phone' => 'nullable',
             'dob' => 'nullable',
             'address' => 'nullable',
+            'is_admin' => 'required',
         ]);
 
         $tmp_file = TemporaryFile::where('folder', $request->image)->first();
@@ -57,6 +60,12 @@ class UserController extends Controller
         return view('users.show', ['user' => $userId]);
     }
 
+    // User Profile Screen
+    public function profile(User $userId)
+    {
+        return view('users.profile', ['user' => $userId]);
+    }
+
     // User Edit Screen
     public function edit(User $userId)
     {
@@ -76,17 +85,19 @@ class UserController extends Controller
 
         $tmp_file = TemporaryFile::where('folder', $request->image)->first();
 
-        $formFields['image'] = $tmp_file ? $tmp_file->folder . '/' . $tmp_file->file : null;
+        if ($tmp_file) {
+            $formFields['image'] = $tmp_file ? $tmp_file->folder . '/' . $tmp_file->file : null;
+            Storage::copy('public/posts/tmp/' . $tmp_file->folder . '/' . $tmp_file->file, 'public/posts/' . $tmp_file->folder . '/' . $tmp_file->file);
+            Storage::deleteDirectory('public/posts/tmp/' . $tmp_file->folder);
+            $tmp_file->delete();
+        } elseif ($userId->image) {
+            $formFields['image'] = $userId->image;
+        } else {
+            $formFields['image'] = null;
+        }
 
         unset($formFields['password']);
         $userId->update($formFields);
-
-        if($tmp_file) {
-            Storage::copy('public/posts/tmp/' . $tmp_file->folder . '/' . $tmp_file->file, 'public/posts/' . $tmp_file->folder . '/' . $tmp_file->file);
-        }
-
-        Storage::deleteDirectory('public/posts/tmp/' . $tmp_file?->folder);
-        $tmp_file?->delete();
 
         return redirect('/users')->with('message', 'User updated successfully!');
     }
@@ -103,7 +114,6 @@ class UserController extends Controller
         return view('auth.register');
     }
 
-
     // User Registration
     public function submitRegistrationForm(Request $request)
     {
@@ -118,13 +128,29 @@ class UserController extends Controller
         return redirect('/')->with('message', 'You are registered!');
     }
 
+    // Change password
+    public function updatePassword(Request $request)
+    {
+        $formFields = $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed|min:6',
+        ]);
+
+        if(!Hash::check($formFields['old_password'], auth()->user()->password)) {
+            return back()->with('message', 'Your old password does not match!');
+        }
+
+        $formFields['password'] = bcrypt($formFields['new_password']);
+        User::where('id', auth()->user()->id)->update(['password' => $formFields['password']]);
+
+        return back()->with('message', 'Password changed successfully!');
+    }
 
     // User Login Screen
     public function login()
     {
         return view('auth.login');
     }
-
 
     // User Login
     public function authenticate(Request $request)

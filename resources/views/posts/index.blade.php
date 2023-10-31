@@ -1,11 +1,11 @@
 <x-layout>
-  <div class="flex justify-between">
-    @include('partials._posts-search')
-    <div class="w-fit flex gap-4">
+  <div class="flex flex-col sm:flex-row sm:justify-between mb-12 gap-4">
+    <div class="w-full md:w-[40%]">
+      @include('partials._posts-search')
+    </div>
+    <div class="w-full md:w-[50%] flex gap-3 sm:justify-end">
       @include('partials._export')
-      <div class="flex gap-4">
-        @include('partials._import')
-      </div>
+      @include('partials._import')
     </div>
   </div>
   <div class="flex justify-center gap-10 flex-wrap">

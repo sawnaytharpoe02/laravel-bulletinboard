@@ -58,16 +58,17 @@
     <div class="dropdown dropdown-end mx-4">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-          <img src="https://img.freepik.com/free-psd/3d-illustration-bald-person-with-glasses_23-2149436184.jpg" />
+          <img
+            src="{{auth()->user()->image ? asset('storage/posts/'. auth()->user()->image) : asset('/images/default-avatar.jpg')}}" />
         </div>
       </label>
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
         <li>
-          <a class="justify-between">
+          <a class="justify-between" href="/users/{{auth()->user()->id}}/profile">
             Profile
           </a>
         </li>
-        <form action="/logout" method="post">
+        <form action="/logout" method="POST">
           <li>
             @csrf
             <button>Logout</button>
