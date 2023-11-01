@@ -6,6 +6,9 @@
         <form class="card-body" action="/user" method="post" enctype="multipart/form-data">
           @csrf
           <div class="form-control">
+            <p class="font-noto underline underline-offset-4 decoration-indigo-500 text-center text-xl mb-4 tracking-wide">Create User Form</p>
+          </div>
+          <div class="form-control">
             <label class="label">
               <span class="label-text">Name</span>
             </label>
@@ -85,7 +88,7 @@
             <input type="file" name="image" id="image" data-max-files="1" data-max-file-size="10MB">
           </div>
           <div class="form-control mt-6">
-            <button class="btn btn-primary" type="submit">Create</button>
+            <button class="btn btn-primary btn-sm h-10 capitalize" type="submit">Create User</button>
           </div>
         </form>
       </div>

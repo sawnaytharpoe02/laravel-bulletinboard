@@ -60,6 +60,7 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 // File Uploading
 Route::post('/tmp-upload', [UserController::class, 'tmpUpload']);
 Route::delete('/tmp-delete', [UserController::class, 'tmpDelete']);
+Route::post('/users/{userId}/clear-profile-image', [UserController::class, 'clearProfileImage']);
 
 // Excel Export Import
 Route::get('posts-export', [PostController::class, 'fileExport'])->name('posts.export');

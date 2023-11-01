@@ -37,6 +37,11 @@
         @csrf
         @method('PUT')
         <div class="form-control">
+          <p
+            class="font-noto underline underline-offset-4 decoration-indigo-500 text-center text-xl mb-4 tracking-wide">
+            Edit Post Form</p>
+        </div>
+        <div class="form-control">
           <label class="label">
             <span class="label-text">Title</span>
           </label>
@@ -50,7 +55,7 @@
             class="textarea textarea-bordered textarea-md w-full h-32 text-sm">{{$post->description}}</textarea>
         </div>
         <div class="form-control mt-6">
-          <button class="btn btn-sm h-10 btn-primary" type="submit">Update Post</button>
+          <button class="btn btn-sm h-10 btn-primary capitalize" type="submit">Update Post</button>
         </div>
       </form>
 

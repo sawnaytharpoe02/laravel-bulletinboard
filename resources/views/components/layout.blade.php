@@ -16,7 +16,7 @@
     <x-navigation />
 
     {{-- body content --}}
-    <section class="py-10 px-2 md:px-10 lg:px-12">
+    <section class="py-10 px-2 md:px-10 lg:px-12 mt-[74px]">
       {{$slot}}
     </section>
 

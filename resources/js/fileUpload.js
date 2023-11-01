@@ -26,10 +26,19 @@ FilePond.setOptions({
     },
 });
 
+const profileImage = document.querySelector("#preview-profile-image");
 function hideEditProfileImage() {
-    const profileImage = document.querySelector("#preview-profile-image");
     if (profileImage) {
         profileImage.style.display = "none";
     }
     return;
 }
+
+document
+    .getElementById("clear-profile-image-btn")
+    ?.addEventListener("click", () => {
+        if (profileImage) {
+            profileImage.style.display = "none";
+        }
+        return;
+    });

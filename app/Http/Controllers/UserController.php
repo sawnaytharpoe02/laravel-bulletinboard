@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use BackedEnum;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\TemporaryFile;
-use BackedEnum;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,6 +17,10 @@ class UserController extends Controller
     // Lists of users screen
     public function index()
     {
+        if(auth()->check() && !auth()->user()->is_admin) {
+            return abort(403);
+        }
+
         $users = User::latest()->filter(request(['search']))->paginate();
         return view('users.index', compact('users'));
     }
@@ -23,6 +28,9 @@ class UserController extends Controller
     // Create User Screen
     public function create()
     {
+        if(auth()->check() && !auth()->user()->is_admin) {
+            return abort(403);
+        }
         return view('users.create');
     }
 
@@ -207,6 +215,18 @@ class UserController extends Controller
             $tmp_file->delete();
             return response('');
         }
+    }
+
+    public function clearProfileImage($userId)
+    {
+        // dd($userId);
+        $user = User::find($userId);
+        if($user) {
+            $user->image = null;
+            $user->save();
+        }
+
+        return back()->with('message', 'Remove profile image successfully!');
     }
 
 }

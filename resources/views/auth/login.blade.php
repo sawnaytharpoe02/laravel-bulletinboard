@@ -1,19 +1,22 @@
 <x-layout>
   <div class="hero min-h-screen">
-    <div class="hero-content flex-col lg:flex-row-reverse">
-      <div class="text-center lg:text-left">
-        <h1 class="text-5xl font-bold">Login now!</h1>
-        <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-          quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+    <div class="hero-content flex-col lg:flex-row-reverse gap-12">
+      <div class="w-full md:w-[50%] text-center lg:text-left">
+        <div>
+          <h1 class="text-5xl font-bold">Login now!</h1>
+          <p class="py-6">Secure your account and access exclusive features. Explore a world of possibilities while
+            protecting your personal information. Join us today!</p>
+        </div>
       </div>
-      <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <div class="w-full md:w-[50%] card flex-shrink-0 max-w-sm shadow-2xl bg-base-100">
         <form class="card-body" action="/post-login" method="post">
           @csrf
           <div class="form-control">
             <label class="label">
               <span class="label-text">Email</span>
             </label>
-            <input type="email" name="email" placeholder="email" class="input input-bordered text-sm" value="{{old('email')}}" />
+            <input type="email" name="email" placeholder="email" class="input input-bordered text-sm"
+              value="{{old('email')}}" />
 
             @error('email')
             <p class="text-sm text-red-600">{{$message}}</p>
@@ -23,7 +26,8 @@
             <label class="label">
               <span class="label-text">Password</span>
             </label>
-            <input type="password" name="password" placeholder="password" class="input input-bordered text-sm" value="{{old('password')}}" />
+            <input type="password" name="password" placeholder="password" class="input input-bordered text-sm"
+              value="{{old('password')}}" />
 
             @error('password')
             <p class="text-sm text-red-600">{{$message}}</p>

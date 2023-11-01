@@ -66,7 +66,7 @@ class PostController extends Controller
         $import = new PostsImport();
         $import->import($request->file('excel-file'));
         if($import->errors()) {
-            return redirect('/')->with('message', $import->errors()->count() . ' data duplicated');
+            return redirect('/')->with('error-message', $import->errors()->count() . ' data duplicated');
         }
         return back()->with('message', 'Imported successfully!');
     }

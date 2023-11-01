@@ -1,5 +1,5 @@
 {{-- navigation bar --}}
-<div class="navbar bg-base-100 shadow-md px-6 py-3">
+<div class="navbar bg-base-100 shadow-md px-6 py-3 fixed top-0 z-[1]">
   {{-- mobile --}}
   <div class="navbar-start">
     <div class="dropdown">
@@ -23,9 +23,15 @@
             <li><a href="/">Post Lists</a></li>
           </ul>
         </li>
+        <li>
+          <a class="btn btn-sm btn-primary btn-outline my-2" href="/register">Register</a>
+        </li>
+        <li>
+          <a class="btn btn-sm mb-2" href="/login">Login</a>
+        </li>
       </ul>
     </div>
-    <a href="/" class="flex gap-3 normal-case text-lg font-semibold ml-4">
+    <a href="/" class="font-agbalumo flex gap-3 normal-case text-[1.35rem] ml-4 text-gray-600">
       Bulletin Board</a>
   </div>
   {{-- desktop --}}
@@ -77,7 +83,7 @@
       </ul>
     </div>
     @else
-    <div>
+    <div class="hidden lg:flex">
       <a class="btn btn-sm btn-primary" href="/register">Register</a>
       <a class="btn btn-sm btn-ghost mx-4" href="/login">Login</a>
     </div>
