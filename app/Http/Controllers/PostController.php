@@ -41,6 +41,9 @@ class PostController extends Controller
 
     public function update(Request $request, Post $postId)
     {
+        if($request->id != auth()->id()) {
+            return back()->with('error-message', 'Unauthorized action!');
+        }
         $formFields = $request->validate([
             'title' => ['required', Rule::unique('posts', 'title')],
             'description' => 'required',
@@ -56,6 +59,16 @@ class PostController extends Controller
     {
         $postId->delete();
         return redirect('/')->with('message', 'Post deleted successfully!');
+    }
+
+    public function manage()
+    {
+        $posts = [];
+
+        $posts = auth()->check() ? auth()->user()->posts() : $posts;
+        $posts = $posts->latest()->ownPostFilter(request(['search']))->paginate(6);
+
+        return view('posts.manage', compact('posts'));
     }
 
     public function fileImport(Request $request)

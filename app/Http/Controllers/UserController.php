@@ -17,10 +17,6 @@ class UserController extends Controller
     // Lists of users screen
     public function index()
     {
-        if(auth()->check() && !auth()->user()->is_admin) {
-            return abort(403);
-        }
-
         $users = User::latest()->filter(request(['search']))->paginate();
         return view('users.index', compact('users'));
     }
@@ -28,9 +24,6 @@ class UserController extends Controller
     // Create User Screen
     public function create()
     {
-        if(auth()->check() && !auth()->user()->is_admin) {
-            return abort(403);
-        }
         return view('users.create');
     }
 
@@ -107,7 +100,7 @@ class UserController extends Controller
         unset($formFields['password']);
         $userId->update($formFields);
 
-        return redirect('/users')->with('message', 'User updated successfully!');
+        return back()->with('message', 'User updated successfully!');
     }
 
     // User Delete
@@ -145,7 +138,7 @@ class UserController extends Controller
         ]);
 
         if(!Hash::check($formFields['old_password'], auth()->user()->password)) {
-            return back()->with('message', 'Your old password does not match!');
+            return back()->with('error-message', 'Your old password does not match!');
         }
 
         $formFields['password'] = bcrypt($formFields['new_password']);
@@ -169,6 +162,13 @@ class UserController extends Controller
         ]);
 
         if(auth()->attempt($formFields)) {
+            if(isset($request->remember) && !empty($request->remember)) {
+                setcookie('email', $formFields['email'], time() + 3600);
+                setcookie('password', $formFields['password'], time() + 3600);
+            } else {
+                setcookie('email', '');
+                setcookie('password', '');
+            }
             $request->session()->regenerate();
 
             return redirect('/')->with('message', 'You are now logged in!');

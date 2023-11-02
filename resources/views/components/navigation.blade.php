@@ -36,7 +36,11 @@
   </div>
   {{-- desktop --}}
   <div class="navbar-center hidden lg:flex">
+    @if (auth()->check())
     <ul class="menu menu-horizontal px-1">
+      <li>
+        <a href="/posts/manage">Own Posts</a>
+      </li>
       <li tabindex="0">
         <details>
           <summary>Posts</summary>
@@ -46,6 +50,7 @@
           </ul>
         </details>
       </li>
+      @if (auth()->user()->is_admin)
       <li tabindex="0">
         <details>
           <summary>Users</summary>
@@ -55,7 +60,9 @@
           </ul>
         </details>
       </li>
+      @endif
     </ul>
+    @endif
   </div>
   <div class="navbar-end">
     @auth

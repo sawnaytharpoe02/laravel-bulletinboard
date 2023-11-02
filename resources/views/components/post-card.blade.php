@@ -5,7 +5,8 @@
     <div class="flex">
       <div class="avatar mr-5">
         <div class="w-12 rounded-full ring ring-accent ring-offset-base-100 ring-offset-2">
-          <img src={{$post->user->image ? $post->user->image : asset('/images/default-avatar.jpg')}} />
+          <img src={{$post->user->image ? asset('storage/posts/'. $post->user->image):
+          asset('/images/default-avatar.jpg')}} />
         </div>
       </div>
       <div>
