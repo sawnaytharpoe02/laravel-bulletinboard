@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('title')->unique();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->longText('description');
+            $table->boolean('show_on_list')->default(true);
             $table->timestamps();
         });
     }

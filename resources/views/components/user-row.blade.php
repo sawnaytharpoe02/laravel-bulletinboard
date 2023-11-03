@@ -1,7 +1,8 @@
 <!-- user row data -->
+
 <tr>
   <th>
-    <div>{{$user->id}}</div>
+    <div>{{$key + 1}}</div>
   </th>
   <td>
     <div class="flex items-center space-x-3">

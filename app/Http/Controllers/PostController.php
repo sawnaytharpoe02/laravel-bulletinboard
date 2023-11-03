@@ -39,15 +39,23 @@ class PostController extends Controller
         return view('posts.show', ['post' => $postId]);
     }
 
+    public function edit(Post $postId)
+    {
+        return view('posts.edit', ['post' => $postId]);
+    }
+
     public function update(Request $request, Post $postId)
     {
-        if($request->id != auth()->id()) {
-            return back()->with('error-message', 'Unauthorized action!');
-        }
         $formFields = $request->validate([
-            'title' => ['required', Rule::unique('posts', 'title')],
+            'title' => ['required', Rule::unique('posts', 'title')->ignore($postId->id)],
             'description' => 'required',
         ]);
+
+        if($request->show_on_list == 'on') {
+            $formFields['show_on_list'] = 1;
+        } else {
+            $formFields['show_on_list'] = 0;
+        }
 
         $formFields['user_id'] = auth()->id();
         $postId->update($formFields);
@@ -71,6 +79,11 @@ class PostController extends Controller
         return view('posts.manage', compact('posts'));
     }
 
+    public function showFileImport()
+    {
+        return view('posts.import-posts');
+    }
+
     public function fileImport(Request $request)
     {
         $request->validate([
@@ -78,10 +91,11 @@ class PostController extends Controller
         ]);
         $import = new PostsImport();
         $import->import($request->file('excel-file'));
-        if($import->errors()) {
+
+        if($import->errors()->count() !== 0) {
             return redirect('/')->with('error-message', $import->errors()->count() . ' data duplicated');
         }
-        return back()->with('message', 'Imported successfully!');
+        return redirect('/')->with('message', 'Posts Imported successfully!');
     }
 
     public function fileExport()

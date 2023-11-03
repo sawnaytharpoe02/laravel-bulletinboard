@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($users as $user)
-    <x-user-row :user="$user" />
+    @foreach ($users as $key => $user)
+    <x-user-row :key="$key" :user="$user" />
     @endforeach
 </table>

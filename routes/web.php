@@ -24,6 +24,7 @@ Route::get('/', [PostController::class, 'index'])->middleware(['auth']);
 Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
 Route::post('/post', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{postId}/detail', [PostController::class, 'show'])->middleware('auth');
+Route::get('/posts/{postId}/edit', [PostController::class, 'edit'])->middleware('auth');
 Route::put('/posts/{postId}/update', [PostController::class, 'update'])->middleware('auth');
 Route::delete('/posts/{postId}/delete', [PostController::class, 'destroy'])->middleware('auth');
 Route::get('/posts/manage', [PostController::class, 'manage'])->middleware('auth');
@@ -65,4 +66,5 @@ Route::post('/users/{userId}/clear-profile-image', [UserController::class, 'clea
 
 // Excel Export Import
 Route::get('posts-export', [PostController::class, 'fileExport'])->name('posts.export')->middleware('auth');
-Route::post('posts-import', [PostController::class, 'fileImport'])->name('posts.import')->middleware('auth');
+Route::get('posts-import', [PostController::class, 'showFileImport'])->name('posts.import.get')->middleware('auth');
+Route::post('posts-import', [PostController::class, 'fileImport'])->name('posts.import.post')->middleware('auth');

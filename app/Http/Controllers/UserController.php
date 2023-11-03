@@ -106,7 +106,8 @@ class UserController extends Controller
     // User Delete
     public function destroy(User $userId)
     {
-        dd($userId);
+        $userId->delete();
+        return redirect('/users')->with('message', 'User deleted successfully!');
     }
 
     // User Registration Screen

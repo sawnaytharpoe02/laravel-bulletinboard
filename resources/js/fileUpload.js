@@ -21,24 +21,31 @@ FilePond.setOptions({
         },
     },
     maxFileSize: 10 * 1024 * 1024,
-    oninitfile: function () {
-        hideEditProfileImage();
-    },
 });
 
-const profileImage = document.querySelector("#preview-profile-image");
-function hideEditProfileImage() {
-    if (profileImage) {
-        profileImage.style.display = "none";
-    }
-    return;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    const userImage = document
+        .getElementById("user-image-data")
+        ?.getAttribute("data-image");
+    const addProfileImgBtn = document.querySelector(".edit-profile-image");
+    const clearProfileImgBtn = document.querySelector(
+        "#clear-profile-image-btn"
+    );
 
-document
-    .getElementById("clear-profile-image-btn")
-    ?.addEventListener("click", () => {
-        if (profileImage) {
-            profileImage.style.display = "none";
+    if (userImage) {
+        if (addProfileImgBtn) {
+            addProfileImgBtn.style.display = "none";
         }
-        return;
-    });
+        if (clearProfileImgBtn) {
+            clearProfileImgBtn.addEventListener("click", () => {
+                if (addProfileImgBtn) {
+                    addProfileImgBtn.style.display = "block";
+                }
+            });
+        }
+    } else {
+        if (addProfileImgBtn) {
+            addProfileImgBtn.style.display = "block";
+        }
+    }
+});

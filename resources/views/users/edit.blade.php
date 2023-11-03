@@ -88,7 +88,10 @@
             <input type="file" name="image" id="image" class="edit-profile-image" data-max-files="1">
 
             @if ($user->image)
-            <div class="avatar" id="preview-profile-image" class="relative">
+            {{-- hidden image data for passing props to js file --}}
+            <div id="user-image-data" data-image="{{ $user->image }}" class="hidden"></div>
+
+            <div class="avatar relative border border-gray-300 rounded-xl" id="preview-profile-image">
               <button type="submit" form="updateImgForm" id="clear-profile-image-btn"
                 class="w-7 h-7 bg-gray-300 rounded-full absolute right-0 top-0 m-4 cursor-pointer text-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
