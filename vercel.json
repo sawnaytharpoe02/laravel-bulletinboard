@@ -12,7 +12,7 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
+        "APP_DEBUG": "false",
         "APP_URL": "https://yourprojectdomain.com",
         "APP_KEY": "base64:tT+MV2sQ/R7hlr/H+D/YH9mfQaS8hIzAip4tgfZ6jxI=",
 
@@ -25,6 +25,9 @@
 
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie"
+        "SESSION_DRIVER": "cookie",
+
+        "SSR_TEMP_PATH": "/tmp/ssr",
+        "NODE_PATH": "node"
     }
 }
