@@ -1,6 +1,5 @@
 {
     "version": 2,
-    "framework": null,
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.6.0" }
     },
@@ -29,5 +28,9 @@
 
         "SSR_TEMP_PATH": "/tmp/ssr",
         "NODE_PATH": "node"
-    }
+    },
+    "builds": [
+        { "src": "public/**/*", "use": "@vercel/static" },
+        { "src": "api/index.php", "use": "vercel-php@0.6.0" }
+    ]
 }
